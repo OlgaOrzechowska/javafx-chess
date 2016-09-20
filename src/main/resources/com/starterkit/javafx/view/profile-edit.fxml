@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?scenebuilder-preview-i18n-resource ../bundle/base.properties?>
+<?scenebuilder-stylesheet ../css/standard.css?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="480.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.starterkit.javafx.controller.ProfileEditController">
+   <children>
+     <Label layoutX="14.0" layoutY="14.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="474.0" styleClass="formTitle" text="%label.formEditTitle" />
+     <GridPane hgap="10.0" layoutX="14.0" layoutY="60.0" prefHeight="279.0" prefWidth="474.0" vgap="10.0">
+       <columnConstraints>
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0" />
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+            <ColumnConstraints minWidth="10.0" prefWidth="80.0" />
+            <ColumnConstraints minWidth="10.0" prefWidth="150.0" />
+       </columnConstraints>
+       <rowConstraints>
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints prefHeight="30.0" />
+            <RowConstraints prefHeight="30.0" />
+            <RowConstraints prefHeight="30.0" />
+            <RowConstraints />
+       </rowConstraints>
+       <children>
+         <Label text="%label.login" />
+         <TextField fx:id="loginField" GridPane.columnIndex="1" />
+         <Label text="%label.name" GridPane.rowIndex="1" />
+         <TextField fx:id="nameField" maxWidth="0.7976931348623157E308" prefHeight="25.0" prefWidth="164.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         <Label text="%label.surname" GridPane.rowIndex="2" />
+         <TextField fx:id="surnameField" maxWidth="0.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      	 <Label text="%label.email" GridPane.rowIndex="3" />
+         <TextField fx:id="emailField" maxWidth="0.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         <Label text="%label.password" GridPane.rowIndex="4" />
+         <TextField fx:id="passwordField" maxWidth="0.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         <Label text="%label.aboutMe" GridPane.rowIndex="5" />
+         <TextField fx:id="aboutMeField" maxWidth="0.7976931348623157E308" prefHeight="84.0" prefWidth="149.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+         <Label text="%label.lifeMotto" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+         <TextField fx:id="lifeMottoField" maxWidth="0.7976931348623157E308" prefHeight="80.0" prefWidth="149.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+       </children>
+     </GridPane>
+   	  <Button fx:id="saveButton" layoutX="278.0" layoutY="444.0" mnemonicParsing="false" onAction="#saveButtonAction" prefWidth="100.0" text="%button.save" />
+   	  <Button fx:id="cancelButton" layoutX="390.0" layoutY="444.0" mnemonicParsing="false" onAction="#cancelButtonAction" prefWidth="100.0" text="%button.cancel" />
+   </children>
+</AnchorPane>
