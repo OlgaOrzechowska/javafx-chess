@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import com.starterkit.javafx.dataprovider.DataProvider;
 import com.starterkit.javafx.dataprovider.data.ProfileVO;
+import com.starterkit.javafx.model.ProfileEdit;
 import com.starterkit.javafx.model.ProfileSearch;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -186,8 +187,6 @@ public class ProfileSearchController {
 		LOG.debug("'Search' button clicked");
 
 		searchButtonAction();
-		deleteButton.setDisable(true);
-		editButton.setDisable(true);
 	}
 
 	/**
@@ -197,7 +196,7 @@ public class ProfileSearchController {
 	 * background thread.
 	 * </p>
 	 */
-	private void searchButtonAction() {
+	public void searchButtonAction() {
 		/*
 		 * Use task to execute the potentially long running call in background
 		 * (separate thread), so that the JavaFX Application Thread is not
@@ -249,6 +248,9 @@ public class ProfileSearchController {
 				 * Reset sorting in the result table.
 				 */
 				resultTable.getSortOrder().clear();
+
+				deleteButton.setDisable(true);
+				editButton.setDisable(true);
 			}
 		};
 
@@ -286,15 +288,18 @@ public class ProfileSearchController {
 
 		Parent editRoot = loader.load();
 		ProfileEditController controller = loader.getController();
+		ProfileEdit editModel = controller.getModel();
 
-		controller.getModel().setId(model.getSelectedProfile().getId());
-		controller.getModel().setLogin(model.getSelectedProfile().getLogin());
-		controller.getModel().setName(model.getSelectedProfile().getName());
-		controller.getModel().setSurname(model.getSelectedProfile().getSurname());
-		controller.getModel().setEmail(model.getSelectedProfile().getEmail());
-		controller.getModel().setPassword(model.getSelectedProfile().getPassword());
-		controller.getModel().setAboutMe(model.getSelectedProfile().getAboutMe());
-		controller.getModel().setLifeMotto(model.getSelectedProfile().getLifeMotto());
+		editModel.setId(model.getSelectedProfile().getId());
+		editModel.setLogin(model.getSelectedProfile().getLogin());
+		editModel.setName(model.getSelectedProfile().getName());
+		editModel.setSurname(model.getSelectedProfile().getSurname());
+		editModel.setEmail(model.getSelectedProfile().getEmail());
+		editModel.setPassword(model.getSelectedProfile().getPassword());
+		editModel.setAboutMe(model.getSelectedProfile().getAboutMe());
+		editModel.setLifeMotto(model.getSelectedProfile().getLifeMotto());
+
+		controller.setSearchController(this);
 
 		Scene editScene = new Scene(editRoot);
 		stage.setScene(editScene);

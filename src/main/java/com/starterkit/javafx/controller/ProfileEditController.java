@@ -87,6 +87,8 @@ public class ProfileEditController {
 
 	private final DataProvider dataProvider = DataProvider.INSTANCE;
 
+	private ProfileSearchController searchController;
+
 	/**
 	 * The JavaFX runtime instantiates this controller.
 	 * <p>
@@ -158,6 +160,8 @@ public class ProfileEditController {
 			protected void succeeded() {
 				LOG.debug("succeeded() called");
 
+				getSearchController().searchButtonAction();
+
 				Stage stage = (Stage) cancelButton.getScene().getWindow();
 
 				stage.close();
@@ -186,6 +190,14 @@ public class ProfileEditController {
 
 	public ProfileEdit getModel() {
 		return model;
+	}
+
+	public ProfileSearchController getSearchController() {
+		return searchController;
+	}
+
+	public void setSearchController(ProfileSearchController searchController) {
+		this.searchController = searchController;
 	}
 
 }
