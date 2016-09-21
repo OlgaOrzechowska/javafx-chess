@@ -14,13 +14,14 @@ public class ProfileVO {
 	private String name;
 	private String surname;
 	private String email;
+	private String password;
 	private String aboutMe;
 	private String lifeMotto;
 
 	public ProfileVO() {
 	}
 
-	public ProfileVO(Long id, String login, String name, String surname, String email, String aboutMe,
+	public ProfileVO(Long id, String login, String name, String surname, String email, String password, String aboutMe,
 			String lifeMotto) {
 		super();
 		this.id = id;
@@ -28,6 +29,7 @@ public class ProfileVO {
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
+		this.password = password;
 		this.aboutMe = aboutMe;
 		this.lifeMotto = lifeMotto;
 	}
@@ -86,6 +88,14 @@ public class ProfileVO {
 
 	public void setLifeMotto(String lifeMotto) {
 		this.lifeMotto = lifeMotto;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override

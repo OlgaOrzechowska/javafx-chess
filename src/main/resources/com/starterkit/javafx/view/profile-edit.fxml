@@ -41,7 +41,7 @@
          <TextField fx:id="lifeMottoField" maxWidth="0.7976931348623157E308" prefHeight="80.0" prefWidth="149.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
        </children>
      </GridPane>
-   	  <Button fx:id="saveButton" layoutX="278.0" layoutY="444.0" mnemonicParsing="false" onAction="#saveButtonAction" prefWidth="100.0" text="%button.save" />
+   	  <Button fx:id="saveButton" layoutX="278.0" layoutY="444.0" mnemonicParsing="false" onAction="#saveButtonAction" prefWidth="100.0" text="%button.save" defaultButton="true" />
    	  <Button fx:id="cancelButton" layoutX="390.0" layoutY="444.0" mnemonicParsing="false" onAction="#cancelButtonAction" prefWidth="100.0" text="%button.cancel" />
    </children>
 </AnchorPane>

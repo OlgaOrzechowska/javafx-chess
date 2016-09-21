@@ -10,11 +10,10 @@ import com.starterkit.javafx.dataprovider.DataProvider;
 import com.starterkit.javafx.dataprovider.data.ProfileVO;
 import com.starterkit.javafx.model.ProfileEdit;
 
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -134,18 +133,38 @@ public class ProfileEditController {
 	@FXML
 	private void saveButtonAction(ActionEvent event) throws IOException {
 		LOG.debug("'Save' button clicked");
-		// TODO here some action
-		ProfileVO profile = new ProfileVO();
-		dataProvider.updateProfile(profile);
 
-		Stage stage = (Stage) cancelButton.getScene().getWindow();
+		saveButtonAction();
+	}
 
-		Parent searchRoot = FXMLLoader.load(getClass().getResource("/com/starterkit/javafx/view/profile-search.fxml"), //
-				ResourceBundle.getBundle("com/starterkit/javafx/bundle/search"));
+	private void saveButtonAction() throws IOException {
 
-		Scene searchScene = new Scene(searchRoot);
-		stage.setScene(searchScene);
-		stage.show();
+		Task<Void> backgroundTask = new Task<Void>() {
+
+			/**
+			 * This method will be executed in a background thread.
+			 */
+			@Override
+			protected Void call() throws Exception {
+				LOG.debug("call() called");
+
+				ProfileVO profile = new ProfileVO(model.getId(), model.getLogin(), model.getName(), model.getSurname(),
+						model.getEmail(), model.getPassword(), model.getAboutMe(), model.getLifeMotto());
+				dataProvider.updateProfile(profile);
+				return null;
+			}
+
+			@Override
+			protected void succeeded() {
+				LOG.debug("succeeded() called");
+
+				Stage stage = (Stage) cancelButton.getScene().getWindow();
+
+				stage.close();
+			}
+		};
+
+		new Thread(backgroundTask).start();
 	}
 
 	/**
@@ -161,13 +180,12 @@ public class ProfileEditController {
 
 		Stage stage = (Stage) cancelButton.getScene().getWindow();
 
-		Parent searchRoot = FXMLLoader.load(getClass().getResource("/com/starterkit/javafx/view/profile-search.fxml"), //
-				ResourceBundle.getBundle("com/starterkit/javafx/bundle/search"));
+		stage.close();
 
-		Scene searchScene = new Scene(searchRoot);
-		stage.setScene(searchScene);
-		stage.show();
+	}
 
+	public ProfileEdit getModel() {
+		return model;
 	}
 
 }

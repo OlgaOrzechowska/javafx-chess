@@ -1,5 +1,7 @@
 package com.starterkit.javafx.model;
 
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -8,6 +10,7 @@ import javafx.beans.property.StringProperty;
  */
 public class ProfileEdit {
 
+	private final LongProperty id = new SimpleLongProperty();
 	private final StringProperty login = new SimpleStringProperty();
 	private final StringProperty name = new SimpleStringProperty();
 	private final StringProperty surname = new SimpleStringProperty();
@@ -15,6 +18,18 @@ public class ProfileEdit {
 	private final StringProperty password = new SimpleStringProperty();
 	private final StringProperty aboutMe = new SimpleStringProperty();
 	private final StringProperty lifeMotto = new SimpleStringProperty();
+
+	public final Long getId() {
+		return id.get();
+	}
+
+	public final void setId(Long value) {
+		id.set(value);
+	}
+
+	public LongProperty idProperty() {
+		return id;
+	}
 
 	public final String getLogin() {
 		return login.get();
@@ -64,8 +79,8 @@ public class ProfileEdit {
 		return email;
 	}
 
-	public StringProperty getPassword() {
-		return password;
+	public String getPassword() {
+		return password.get();
 	}
 
 	public final void setPassword(String value) {
@@ -76,8 +91,8 @@ public class ProfileEdit {
 		return password;
 	}
 
-	public StringProperty getAboutMe() {
-		return aboutMe;
+	public String getAboutMe() {
+		return aboutMe.get();
 	}
 
 	public final void setAboutMe(String value) {
@@ -88,8 +103,8 @@ public class ProfileEdit {
 		return aboutMe;
 	}
 
-	public StringProperty getLifeMotto() {
-		return lifeMotto;
+	public String getLifeMotto() {
+		return lifeMotto.get();
 	}
 
 	public final void setLifeMotto(String value) {

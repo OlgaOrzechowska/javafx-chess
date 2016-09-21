@@ -19,9 +19,11 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.Modality;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -271,9 +273,28 @@ public class ProfileSearchController {
 	private void editButtonAction(ActionEvent event) throws IOException {
 		LOG.debug("'Edit' button clicked");
 
-		Stage stage = (Stage) editButton.getScene().getWindow();
-		Parent editRoot = FXMLLoader.load(getClass().getResource("/com/starterkit/javafx/view/profile-edit.fxml"), //
-				ResourceBundle.getBundle("com/starterkit/javafx/bundle/edit"));
+		FXMLLoader loader = new FXMLLoader();
+
+		loader.setResources(ResourceBundle.getBundle("com/starterkit/javafx/bundle/edit"));
+		loader.setLocation(getClass().getResource("/com/starterkit/javafx/view/profile-edit.fxml"));
+
+		Stage stage = new Stage();
+
+		stage.setTitle("StarterKit-Chess");
+		stage.initModality(Modality.WINDOW_MODAL);
+		stage.initOwner(((Node) event.getSource()).getScene().getWindow());
+
+		Parent editRoot = loader.load();
+		ProfileEditController controller = loader.getController();
+
+		controller.getModel().setId(model.getSelectedProfile().getId());
+		controller.getModel().setLogin(model.getSelectedProfile().getLogin());
+		controller.getModel().setName(model.getSelectedProfile().getName());
+		controller.getModel().setSurname(model.getSelectedProfile().getSurname());
+		controller.getModel().setEmail(model.getSelectedProfile().getEmail());
+		controller.getModel().setPassword(model.getSelectedProfile().getPassword());
+		controller.getModel().setAboutMe(model.getSelectedProfile().getAboutMe());
+		controller.getModel().setLifeMotto(model.getSelectedProfile().getLifeMotto());
 
 		Scene editScene = new Scene(editRoot);
 		stage.setScene(editScene);
@@ -286,16 +307,42 @@ public class ProfileSearchController {
 	 *
 	 * @param event
 	 *            {@link ActionEvent} holding information about this event
+	 * @throws IOException
 	 */
 	@FXML
 	private void deleteButtonAction(ActionEvent event) {
 		LOG.debug("'Delete' button clicked");
 
-		dataProvider.deleteProfile(model.getSelectedProfile().getId());
-		deleteButton.setDisable(true);
-		editButton.setDisable(true);
-		searchButtonAction();
+		deleteButtonAction();
 
+	}
+
+	private void deleteButtonAction() {
+
+		Task<Void> backgroundTask = new Task<Void>() {
+
+			/**
+			 * This method will be executed in a background thread.
+			 */
+			@Override
+			protected Void call() throws Exception {
+				LOG.debug("call() called");
+
+				dataProvider.deleteProfile(model.getSelectedProfile().getId());
+				return null;
+			}
+
+			@Override
+			protected void succeeded() {
+				LOG.debug("succeeded() called");
+
+				deleteButton.setDisable(true);
+				editButton.setDisable(true);
+				searchButtonAction();
+			}
+		};
+
+		new Thread(backgroundTask).start();
 	}
 
 }
