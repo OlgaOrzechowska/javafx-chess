@@ -17,6 +17,7 @@ import com.starterkit.javafx.dataprovider.data.ProfileVO;
  */
 public class DataProviderImpl implements DataProvider {
 
+	private static final String URL = "http://localhost:8090/user/";
 	private static final Logger LOG = Logger.getLogger(DataProviderImpl.class);
 
 	public DataProviderImpl() {
@@ -28,11 +29,9 @@ public class DataProviderImpl implements DataProvider {
 
 		RestTemplate restTemplate = new RestTemplate();
 
-		// TODO obsluga wyjatkow (np bez serwera, okno z bledem)
-		// TODO przeniesienie poczatku adresu do parametru
 		ResponseEntity<List<ProfileVO>> profilesResponse = restTemplate.exchange(
-				"http://localhost:8090/user/search?login=" + login + "&name=" + name + "&surname=" + surname,
-				HttpMethod.GET, null, new ParameterizedTypeReference<List<ProfileVO>>() {
+				URL + "search?login=" + login + "&name=" + name + "&surname=" + surname, HttpMethod.GET, null,
+				new ParameterizedTypeReference<List<ProfileVO>>() {
 				});
 		List<ProfileVO> profiles = profilesResponse.getBody();
 
@@ -44,7 +43,7 @@ public class DataProviderImpl implements DataProvider {
 	public void deleteProfile(long id) {
 		RestTemplate restTemplate = new RestTemplate();
 
-		restTemplate.exchange("http://localhost:8090/user/" + id, HttpMethod.DELETE, null, String.class);
+		restTemplate.exchange(URL + id, HttpMethod.DELETE, null, String.class);
 	}
 
 	@Override
@@ -52,9 +51,8 @@ public class DataProviderImpl implements DataProvider {
 		RestTemplate restTemplate = new RestTemplate();
 
 		HttpEntity<ProfileVO> request = new HttpEntity<>(profile);
-		restTemplate.exchange("http://localhost:8090/user/", HttpMethod.PUT, request,
-				new ParameterizedTypeReference<ProfileVO>() {
-				});
+		restTemplate.exchange(URL, HttpMethod.PUT, request, new ParameterizedTypeReference<ProfileVO>() {
+		});
 	}
 
 }

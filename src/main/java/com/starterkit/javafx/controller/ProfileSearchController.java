@@ -25,6 +25,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.Modality;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -208,7 +210,7 @@ public class ProfileSearchController {
 			 * This method will be executed in a background thread.
 			 */
 			@Override
-			protected Collection<ProfileVO> call() throws Exception {
+			protected Collection<ProfileVO> call() {
 				LOG.debug("call() called");
 
 				/*
@@ -251,6 +253,16 @@ public class ProfileSearchController {
 
 				deleteButton.setDisable(true);
 				editButton.setDisable(true);
+			}
+
+			@Override
+			protected void failed() {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error");
+				alert.setHeaderText("Profile search failed.");
+				alert.setContentText("There might be some problem with server.");
+				alert.showAndWait();
+
 			}
 		};
 
@@ -345,6 +357,16 @@ public class ProfileSearchController {
 				editButton.setDisable(true);
 				searchButtonAction();
 			}
+
+			@Override
+			protected void failed() {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error");
+				alert.setHeaderText("Profile delete failed.");
+				alert.setContentText("There might be some problem with server or a profile that you try to delete.");
+				alert.showAndWait();
+			}
+
 		};
 
 		new Thread(backgroundTask).start();
