@@ -17,6 +17,7 @@ import com.starterkit.javafx.dataprovider.data.ProfileVO;
  */
 public class DataProviderImpl implements DataProvider {
 
+	// REV: adres powinien byc pobrany z konfiguracji (plik, parametr, itp.)
 	private static final String URL = "http://localhost:8090/user/";
 	private static final Logger LOG = Logger.getLogger(DataProviderImpl.class);
 
@@ -27,9 +28,11 @@ public class DataProviderImpl implements DataProvider {
 	public List<ProfileVO> findProfiles(String login, String name, String surname) {
 		LOG.debug("Entering findProfiles()");
 
+		// REV: lepiej utworzyc ten tylko raz i zapisac jako atrybut klasy
 		RestTemplate restTemplate = new RestTemplate();
 
 		ResponseEntity<List<ProfileVO>> profilesResponse = restTemplate.exchange(
+				// REV: nalezaloby zakodowac parametry - URLEncoder.encode(String, String)
 				URL + "search?login=" + login + "&name=" + name + "&surname=" + surname, HttpMethod.GET, null,
 				new ParameterizedTypeReference<List<ProfileVO>>() {
 				});
@@ -41,6 +44,7 @@ public class DataProviderImpl implements DataProvider {
 
 	@Override
 	public void deleteProfile(long id) {
+		// REV: j.w.
 		RestTemplate restTemplate = new RestTemplate();
 
 		restTemplate.exchange(URL + id, HttpMethod.DELETE, null, String.class);
@@ -48,6 +52,7 @@ public class DataProviderImpl implements DataProvider {
 
 	@Override
 	public void updateProfile(ProfileVO profile) {
+		// REV: j.w.
 		RestTemplate restTemplate = new RestTemplate();
 
 		HttpEntity<ProfileVO> request = new HttpEntity<>(profile);

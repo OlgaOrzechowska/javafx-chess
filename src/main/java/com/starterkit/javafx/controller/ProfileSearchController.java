@@ -131,6 +131,7 @@ public class ProfileSearchController {
 		LOG.debug("initialize(): nameField = " + nameField);
 
 		initializeResultTable();
+		// REV: lepiej zrobic to bindami
 		deleteButton.setDisable(true);
 		editButton.setDisable(true);
 
@@ -170,6 +171,7 @@ public class ProfileSearchController {
 				LOG.debug(newValue + " selected");
 				model.setSelectedProfile(newValue);
 				if (newValue != null) {
+					// REV: lepiej zrobic to bindami
 					deleteButton.setDisable(false);
 					editButton.setDisable(false);
 				}
@@ -251,6 +253,7 @@ public class ProfileSearchController {
 				 */
 				resultTable.getSortOrder().clear();
 
+				// REV: j.w.
 				deleteButton.setDisable(true);
 				editButton.setDisable(true);
 			}
@@ -258,6 +261,7 @@ public class ProfileSearchController {
 			@Override
 			protected void failed() {
 				Alert alert = new Alert(AlertType.ERROR);
+				// REV: teksty z bundla
 				alert.setTitle("Error");
 				alert.setHeaderText("Profile search failed.");
 				alert.setContentText("There might be some problem with server.");
@@ -292,6 +296,7 @@ public class ProfileSearchController {
 		loader.setResources(ResourceBundle.getBundle("com/starterkit/javafx/bundle/edit"));
 		loader.setLocation(getClass().getResource("/com/starterkit/javafx/view/profile-edit.fxml"));
 
+		// REV: moznaby utworzyc okno w konstruktorze
 		Stage stage = new Stage();
 
 		stage.setTitle("StarterKit-Chess");
@@ -353,6 +358,7 @@ public class ProfileSearchController {
 			protected void succeeded() {
 				LOG.debug("succeeded() called");
 
+				// REV: j.w.
 				deleteButton.setDisable(true);
 				editButton.setDisable(true);
 				searchButtonAction();
@@ -361,6 +367,7 @@ public class ProfileSearchController {
 			@Override
 			protected void failed() {
 				Alert alert = new Alert(AlertType.ERROR);
+				// REV: j.w.
 				alert.setTitle("Error");
 				alert.setHeaderText("Profile delete failed.");
 				alert.setContentText("There might be some problem with server or a profile that you try to delete.");

@@ -26,6 +26,7 @@
        </rowConstraints>
        <children>
          <Label text="%label.login" />
+         <!-- REV: editable=false? -->
          <TextField fx:id="loginField" GridPane.columnIndex="1" />
          <Label text="%label.name" GridPane.rowIndex="1" />
          <TextField fx:id="nameField" maxWidth="0.7976931348623157E308" prefHeight="25.0" prefWidth="164.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -42,6 +43,7 @@
        </children>
      </GridPane>
    	  <Button fx:id="saveButton" layoutX="278.0" layoutY="444.0" mnemonicParsing="false" onAction="#saveButtonAction" prefWidth="100.0" text="%button.save" defaultButton="true" />
+   	  <!-- REV: cancelButton=true -->
    	  <Button fx:id="cancelButton" layoutX="390.0" layoutY="444.0" mnemonicParsing="false" onAction="#cancelButtonAction" prefWidth="100.0" text="%button.cancel" />
    </children>
 </AnchorPane>

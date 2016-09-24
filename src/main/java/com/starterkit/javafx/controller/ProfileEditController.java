@@ -172,6 +172,7 @@ public class ProfileEditController {
 			@Override
 			protected void failed() {
 				Alert alert = new Alert(AlertType.ERROR);
+				// REV: teksty z bundla
 				alert.setTitle("Error");
 				alert.setHeaderText("Profile update failed.");
 				alert.setContentText("There might be some problem with server or a profile that you try to update.");
